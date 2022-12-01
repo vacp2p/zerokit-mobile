@@ -17,6 +17,7 @@
 		7961AA7929342D2C00B52AA9 /* verification_key.json in Resources */ = {isa = PBXBuildFile; fileRef = 7961AA7829342D2C00B52AA9 /* verification_key.json */; };
 		799E22A12938FB5D004476D7 /* zerokit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A02938FB5D004476D7 /* zerokit.swift */; };
 		799E22A329390A44004476D7 /* CBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A229390A44004476D7 /* CBuffer.swift */; };
+		799E22A529391F6A004476D7 /* MembershipKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A429391F6A004476D7 /* MembershipKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		7961AA7829342D2C00B52AA9 /* verification_key.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = verification_key.json; path = ../../resources/verification_key.json; sourceTree = "<group>"; };
 		799E22A02938FB5D004476D7 /* zerokit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zerokit.swift; sourceTree = "<group>"; };
 		799E22A229390A44004476D7 /* CBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBuffer.swift; sourceTree = "<group>"; };
+		799E22A429391F6A004476D7 /* MembershipKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		791439112933B31F003246AC /* zerokit-ios */ = {
 			isa = PBXGroup;
 			children = (
+				799E22A429391F6A004476D7 /* MembershipKey.swift */,
 				7961AA7829342D2C00B52AA9 /* verification_key.json */,
 				791439122933B31F003246AC /* zerokit_iosApp.swift */,
 				791439142933B31F003246AC /* ContentView.swift */,
@@ -178,6 +181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				799E22A529391F6A004476D7 /* MembershipKey.swift in Sources */,
 				799E22A12938FB5D004476D7 /* zerokit.swift in Sources */,
 				799E22A329390A44004476D7 /* CBuffer.swift in Sources */,
 				791439152933B31F003246AC /* ContentView.swift in Sources */,

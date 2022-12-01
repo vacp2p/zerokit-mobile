@@ -12,7 +12,39 @@ func readFile(filename: String, filetype: String) -> [UInt8] {
     return [UInt8]()
 }
 
-func generateCredentials(ctx: OpaquePointer!) -> [UInt8] {
+
+func insertMember(ctx: OpaquePointer!, credential: MembershipKey) throws {
+    let inputBuffer = CBuffer(input: credential.idCommitment)
+    if !set_next_leaf(ctx, inputBuffer.bufferPtr) {
+        throw RLNError.memberNotInserted
+    }
+}
+
+func insertMembers(ctx: OpaquePointer!, commitments: [IDCommitment], index: UInt) throws {
+    var cnt = UInt64(littleEndian: UInt64(commitments.count))
+    let countBytes = withUnsafeBytes(of: &cnt) { Array($0) }
+    
+    var credentialsBytes = countBytes
+    commitments.forEach {
+        credentialsBytes += $0
+    }
+    
+    let inputBuffer = CBuffer(input: credentialsBytes)
+    if !set_leaves_from(ctx, index, inputBuffer.bufferPtr) {
+        throw RLNError.memberNotInserted
+    }
+}
+
+
+let DefaultEpochUnitSeconds = 10; // the rln-relay epoch length in seconds
+
+enum RLNError: Error {
+    case noCredentialsGenerated
+    case memberNotInserted
+}
+
+
+func generateCredentials(ctx: OpaquePointer!) throws -> MembershipKey {
     // Generating credentials ======
     let credentialBuffer = CBuffer()
     if key_gen(ctx, credentialBuffer.bufferPtr) {
@@ -21,14 +53,10 @@ func generateCredentials(ctx: OpaquePointer!) -> [UInt8] {
         bufferPointer.withUnsafeBytes {
             generatedKeyBytes.append(contentsOf: $0)
         }
-        // TODO: generatedKeyBytes will contain 64 bytes now. Extract IDCommitment and IDKey into a specific type
-        
-        return generatedKeyBytes
-    } else {
-        // TODO: throw error
+        return try MembershipKey.fromBytes(memKeys: generatedKeyBytes)
     }
     
-    return [UInt8]()
+    throw RLNError.noCredentialsGenerated
 }
 
 func getMerkleRoot(ctx: OpaquePointer!) -> [UInt8] {
@@ -48,13 +76,13 @@ func getMerkleRoot(ctx: OpaquePointer!) -> [UInt8] {
 
 func newRLN() -> String {
     // Reading resource files
-    var circom_bytes = readFile(filename: "rln", filetype: "wasm")
-    var zkey_bytes = readFile(filename: "rln_final", filetype: "zkey")
-    var vk_bytes = readFile(filename: "verification_key", filetype: "json")
+    let circom_bytes = readFile(filename: "rln", filetype: "wasm")
+    let zkey_bytes = readFile(filename: "rln_final", filetype: "zkey")
+    let vk_bytes = readFile(filename: "verification_key", filetype: "json")
     
-    let circom_buffer = CBuffer(input: &circom_bytes)
-    let zkey_buffer = CBuffer(input: &zkey_bytes)
-    let vk_buffer = CBuffer(input: &vk_bytes)
+    let circom_buffer = CBuffer(input: circom_bytes)
+    let zkey_buffer = CBuffer(input: zkey_bytes)
+    let vk_buffer = CBuffer(input: vk_bytes)
     
     // Instantiating RLN object
     let objUnsafeMutablePtr = UnsafeMutablePointer<AnyObject>.allocate(capacity: 1)
@@ -63,7 +91,25 @@ func newRLN() -> String {
         // TODO: throw error
     }
     
-    let newCredential = generateCredentials(ctx: ctx)
+    do {
+        let newCredential = try generateCredentials(ctx: ctx)
+        
+        try insertMember(ctx: ctx, credential: newCredential)
+        
+        var commitmentCollection = [IDCommitment]()
+        for _ in 1...3 {
+            let currCred = try generateCredentials(ctx: ctx)
+            commitmentCollection.append(currCred.idCommitment)
+        }
+        try insertMembers(ctx: ctx, commitments: commitmentCollection, index: 1)
+    } catch {
+        print("Unexpected error: \(error).")
+    }
+    
+    // TODO: Calculate Epoch
+    // TODO: Serialize Message
+    // TODO: generateRLNProof
+    // TODO: validateProof
     
     let merkleRoot = getMerkleRoot(ctx: ctx)
 
