@@ -15,6 +15,7 @@
 		7961AA75293428FD00B52AA9 /* rln_final.zkey in Resources */ = {isa = PBXBuildFile; fileRef = 7961AA72293428FD00B52AA9 /* rln_final.zkey */; };
 		7961AA77293428FD00B52AA9 /* rln.wasm in Resources */ = {isa = PBXBuildFile; fileRef = 7961AA74293428FD00B52AA9 /* rln.wasm */; };
 		7961AA7929342D2C00B52AA9 /* verification_key.json in Resources */ = {isa = PBXBuildFile; fileRef = 7961AA7829342D2C00B52AA9 /* verification_key.json */; };
+		799E22A12938FB5D004476D7 /* zerokit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A02938FB5D004476D7 /* zerokit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		7961AA72293428FD00B52AA9 /* rln_final.zkey */ = {isa = PBXFileReference; lastKnownFileType = file; name = rln_final.zkey; path = ../../resources/rln_final.zkey; sourceTree = "<group>"; };
 		7961AA74293428FD00B52AA9 /* rln.wasm */ = {isa = PBXFileReference; lastKnownFileType = file; name = rln.wasm; path = ../../resources/rln.wasm; sourceTree = "<group>"; };
 		7961AA7829342D2C00B52AA9 /* verification_key.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = verification_key.json; path = ../../resources/verification_key.json; sourceTree = "<group>"; };
+		799E22A02938FB5D004476D7 /* zerokit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zerokit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				7961AA72293428FD00B52AA9 /* rln_final.zkey */,
 				7961AA74293428FD00B52AA9 /* rln.wasm */,
 				791439182933B320003246AC /* Preview Content */,
+				799E22A02938FB5D004476D7 /* zerokit.swift */,
 			);
 			path = "zerokit-ios";
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				799E22A12938FB5D004476D7 /* zerokit.swift in Sources */,
 				791439152933B31F003246AC /* ContentView.swift in Sources */,
 				791439132933B31F003246AC /* zerokit_iosApp.swift in Sources */,
 			);
