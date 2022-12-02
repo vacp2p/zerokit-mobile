@@ -21,13 +21,13 @@ func test() -> String {
     
     do {
         // Instantiating RLN object
-        let rlnObj = try RLN(circomBytes: circom_bytes, zkeyBytes: zkey_bytes, vkBytes: vk_bytes)
+        let rlnObj = try RLN(circom_bytes, zkey_bytes, vk_bytes)
 
         // Generating a credential
         let newCredential = try rlnObj.generateCredentials()
         
         // Inserting a single credential
-        try rlnObj.insertMember(credential: newCredential)
+        try rlnObj.insertMember(newCredential)
         
         // Inserting multiple credentials
         var commitmentCollection = [IDCommitment]()
@@ -35,20 +35,20 @@ func test() -> String {
             let currCred = try rlnObj.generateCredentials()
             commitmentCollection.append(currCred.idCommitment)
         }
-        try rlnObj.insertMembers(commitments: commitmentCollection, index: 1)
+        try rlnObj.insertMembers(commitmentCollection, 1)
         
         // Obtaining the current merkle root
         let merkleRoot = try rlnObj.getMerkleRoot()
         
-        // Date to epoch conversion
-        let epoch = dateToEpoch(timestamp: Date())
-        
-        // Serialize Message
         let msg: [UInt8] = [1,2,3,4,5,6,7,8,9,10]
-        let serializedMessage = rlnObj.serializeMsg(uint8Msg: msg, memIndex: 0, epoch: epoch, idKey: newCredential.idKey)
         
-        // TODO: generateRLNProof
+        // GenerateRLNProof
+        let proof = try rlnObj.generateRLNProof(msg, 0, Date(), newCredential.idKey)
+        
+        print("Proof generated succesfully!")
+        
         // TODO: validateProof
+        
     } catch {
         print("Unexpected error: \(error).")
     }

@@ -20,6 +20,7 @@
 		799E22A529391F6A004476D7 /* MembershipKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A429391F6A004476D7 /* MembershipKey.swift */; };
 		799E22A7293A2865004476D7 /* RLN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A6293A2865004476D7 /* RLN.swift */; };
 		799E22A9293A2FAF004476D7 /* Epoch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A8293A2FAF004476D7 /* Epoch.swift */; };
+		799E22AB293A3C06004476D7 /* RateLimitProof.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22AA293A3C06004476D7 /* RateLimitProof.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		799E22A429391F6A004476D7 /* MembershipKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipKey.swift; sourceTree = "<group>"; };
 		799E22A6293A2865004476D7 /* RLN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLN.swift; sourceTree = "<group>"; };
 		799E22A8293A2FAF004476D7 /* Epoch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Epoch.swift; sourceTree = "<group>"; };
+		799E22AA293A3C06004476D7 /* RateLimitProof.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateLimitProof.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				799E22A229390A44004476D7 /* CBuffer.swift */,
 				799E22A6293A2865004476D7 /* RLN.swift */,
 				799E22A8293A2FAF004476D7 /* Epoch.swift */,
+				799E22AA293A3C06004476D7 /* RateLimitProof.swift */,
 			);
 			path = "zerokit-ios";
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				799E22AB293A3C06004476D7 /* RateLimitProof.swift in Sources */,
 				799E22A529391F6A004476D7 /* MembershipKey.swift in Sources */,
 				799E22A12938FB5D004476D7 /* zerokit.swift in Sources */,
 				799E22A7293A2865004476D7 /* RLN.swift in Sources */,
