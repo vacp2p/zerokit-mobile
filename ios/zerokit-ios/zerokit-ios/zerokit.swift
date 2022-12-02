@@ -37,17 +37,26 @@ func test() -> String {
         }
         try rlnObj.insertMembers(commitmentCollection, 1)
         
+        // TODO: delete member
+        // TODO: seeded_key_gen
+        
         // Obtaining the current merkle root
-        let merkleRoot = try rlnObj.getMerkleRoot()
+        var merkleRoot = try rlnObj.getMerkleRoot()
         
         let msg: [UInt8] = [1,2,3,4,5,6,7,8,9,10]
         
-        // GenerateRLNProof
+        // Generate RLN Proof
         let proof = try rlnObj.generateRLNProof(msg, 0, Date(), newCredential.idKey)
-        
         print("Proof generated succesfully!")
         
-        // TODO: validateProof
+        // Verify RLN Proof
+        let isValid = try rlnObj.verifyProof(proof, msg)
+        print("Proof validated succesfully: ", isValid)
+        
+        // Verify RLN Proof passing window of merkle roots to validate
+        let isValid2 = try rlnObj.verifyProofWithRoots(proof, msg, [merkleRoot])
+        print("Proof validated succesfully: ", isValid2)
+        
         
     } catch {
         print("Unexpected error: \(error).")

@@ -8,6 +8,7 @@ enum RLNError: Error {
     case invalidIdKey
     case invalidIndex
     case proofGenerationFailed
+    case proofValidationFailed
 }
 
 class RLN {
@@ -100,13 +101,13 @@ class RLN {
         guard idKey.count == 32 else {
             throw RLNError.invalidIdKey
         }
-        
+
         guard index >= 0 else {
             throw RLNError.invalidIndex
         }
-        
+
         let serialized_msg = self.serializeMsg(msg, index, dateToEpoch(epoch), idKey)
-        
+
         let input = CBuffer(input: serialized_msg)
         let output = CBuffer()
         if generate_rln_proof(self.ctx, input.bufferPtr, output.bufferPtr) {
@@ -117,7 +118,42 @@ class RLN {
             }
             return try RateLimitProof(proofBytes)
         }
-        
+
         throw RLNError.proofGenerationFailed
-      }
+    }
+    
+    // Verify verifies a proof generated for the RLN.
+    // proof [ proof<128>| root<32>| epoch<32>| share_x<32>| share_y<32>| nullifier<32> | signal_len<8> | signal<var> ]
+    func verifyProof(_ proof: RateLimitProof, _ msg: [UInt8]) throws -> Bool {
+        let proofBytes = proof.serialize(msg)
+        let proofBuffer = CBuffer(input: proofBytes)
+        
+        var isValid = false
+        if verify_rln_proof(self.ctx, proofBuffer.bufferPtr, &isValid) {
+            return isValid
+        }
+
+        throw RLNError.proofValidationFailed
+    }
+
+    func verifyProofWithRoots(_ proof: RateLimitProof, _ msg: [UInt8], _ roots: [[UInt8]]) throws -> Bool {
+        let proofBytes = proof.serialize(msg)
+        let proofBuffer = CBuffer(input: proofBytes)
+        
+        var rootBytes = [UInt8]()
+        roots.forEach {
+            rootBytes += $0
+        }
+        let rootBuffer = CBuffer(input: rootBytes)
+
+        var isValid = false
+        if verify_with_roots(self.ctx, proofBuffer.bufferPtr, rootBuffer.bufferPtr, &isValid) {
+            return isValid
+        }
+
+        throw RLNError.proofValidationFailed
+    }
+
+
+    
 }
