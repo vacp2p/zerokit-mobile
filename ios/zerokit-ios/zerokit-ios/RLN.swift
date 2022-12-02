@@ -80,4 +80,16 @@ class RLN {
         throw RLNError.couldNotObtainMerkleRoot
     }
     
+    func serializeMsg(uint8Msg: [UInt8], memIndex: Int, epoch: Epoch, idKey: IDKey) -> [UInt8] {
+        // calculate message length
+        var msgLen64 = UInt64(littleEndian: UInt64(uint8Msg.count))
+        let msgLenBytes = withUnsafeBytes(of: &msgLen64) { Array($0) }
+        
+        // Converting index to LE bytes
+        var memIndex64 = UInt64(littleEndian: UInt64(memIndex))
+        let memIndexBytes = withUnsafeBytes(of: &memIndex64) { Array($0) }
+        
+        // [ id_key<32> | id_index<8> | epoch<32> | signal_len<8> | signal<var> ]
+        return idKey + memIndexBytes + epoch + msgLenBytes + uint8Msg
+    }
 }

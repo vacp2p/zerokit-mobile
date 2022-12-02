@@ -19,6 +19,7 @@
 		799E22A329390A44004476D7 /* CBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A229390A44004476D7 /* CBuffer.swift */; };
 		799E22A529391F6A004476D7 /* MembershipKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A429391F6A004476D7 /* MembershipKey.swift */; };
 		799E22A7293A2865004476D7 /* RLN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A6293A2865004476D7 /* RLN.swift */; };
+		799E22A9293A2FAF004476D7 /* Epoch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E22A8293A2FAF004476D7 /* Epoch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		799E22A229390A44004476D7 /* CBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBuffer.swift; sourceTree = "<group>"; };
 		799E22A429391F6A004476D7 /* MembershipKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipKey.swift; sourceTree = "<group>"; };
 		799E22A6293A2865004476D7 /* RLN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLN.swift; sourceTree = "<group>"; };
+		799E22A8293A2FAF004476D7 /* Epoch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Epoch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				799E22A02938FB5D004476D7 /* zerokit.swift */,
 				799E22A229390A44004476D7 /* CBuffer.swift */,
 				799E22A6293A2865004476D7 /* RLN.swift */,
+				799E22A8293A2FAF004476D7 /* Epoch.swift */,
 			);
 			path = "zerokit-ios";
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				799E22A329390A44004476D7 /* CBuffer.swift in Sources */,
 				791439152933B31F003246AC /* ContentView.swift in Sources */,
 				791439132933B31F003246AC /* zerokit_iosApp.swift in Sources */,
+				799E22A9293A2FAF004476D7 /* Epoch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
